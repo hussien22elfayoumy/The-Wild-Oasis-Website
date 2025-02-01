@@ -5,15 +5,16 @@ import bgImg from '../../public/bg.png';
 export default function Home() {
   return (
     <section className="mt-24">
-      <Image
-        src={bgImg}
-        fill
-        placeholder="blur"
-        quality={80}
-        className="object-cover object-top"
-        alt="Mountains and forests with two cabins"
-        priority
-      />
+      <div className="absolute bottom-0 left-0 right-0 top-0 aspect-auto">
+        <Image
+          src={bgImg}
+          fill
+          quality={80}
+          className="object-cover object-top"
+          alt="Mountains and forests with two cabins"
+          priority
+        />
+      </div>
 
       <div className="relative z-10 text-center">
         <h1 className="text-primary-50 mb-10 text-8xl font-normal tracking-tight">
