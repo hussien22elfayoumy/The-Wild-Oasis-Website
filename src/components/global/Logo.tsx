@@ -8,7 +8,7 @@ export default function Logo() {
       className="z-10 flex items-center gap-4"
     >
       <Image
-        src="./logo.png"
+        src="/logo.png"
         height={60}
         width={60}
         alt="The Wild Oasis logo"
