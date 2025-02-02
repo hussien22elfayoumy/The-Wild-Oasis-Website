@@ -1,3 +1,5 @@
+import { createClient } from '@/db/supabase/server';
+
 export async function getCountries() {
   try {
     const res = await fetch('https://restcountries.com/v2/all?fields=name,flag');
@@ -7,3 +9,18 @@ export async function getCountries() {
     throw new Error('Could not fetch countries');
   }
 }
+
+export const getCabins = async function () {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('cabins')
+    .select('id, name, maxCapacity, regularPrice, discount, image')
+    .order('name');
+
+  if (error) {
+    console.error(error);
+    throw new Error('Cabins could not be loaded');
+  }
+
+  return data;
+};

@@ -1,14 +1,27 @@
+import { getCabins } from '@/lib/data-service';
 import React from 'react';
 
 export const metadata = {
   title: 'Cabins',
 };
 
-export default function Page() {
+interface CabinType {
+  id: string;
+  name: string;
+  image: string;
+  discount: number;
+  maxCapacity: number;
+  regularPrice: number;
+}
+
+export default async function Page() {
+  const data = await getCabins();
+  console.log(data);
+
   return (
     <div>
-      <h1 className="text-accent-400 mb-5 text-4xl font-medium">Our Luxury Cabins</h1>
-      <p className="text-primary-200 mb-10 text-lg">
+      <h1 className="mb-5 text-4xl font-medium text-accent-400">Our Luxury Cabins</h1>
+      <p className="mb-10 text-lg text-primary-200">
         Cozy yet luxurious cabins, located right in the heart of the Italian Dolomites.
         Imagine waking up to beautiful mountain views, spending your days exploring the
         dark forests around, or just relaxing in your private hot tub under the stars.
