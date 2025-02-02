@@ -2,9 +2,13 @@ import { getCabin } from '@/lib/data-service';
 import Image from 'next/image';
 import { HiEyeSlash, HiMapPin, HiUsers } from 'react-icons/hi2';
 
-export const metadata = {
-  title: 'Cabin details',
-};
+export async function generateMetadata({ params }: { params: { cabinId: string } }) {
+  const { cabinId } = await params;
+  const cabin = await getCabin(cabinId);
+  const { name } = cabin;
+
+  return { title: `Cabin ${name}` };
+}
 
 export default async function Page({ params }: { params: { cabinId: string } }) {
   const { cabinId } = await params;

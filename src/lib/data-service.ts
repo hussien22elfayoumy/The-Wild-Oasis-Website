@@ -14,7 +14,7 @@ export const getCabins = async function () {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('cabins')
-    .select('id, name, maxCapacity, regularPrice, discount, image')
+    .select('id, name, maxCapacity, regularPrice, discount, description, image')
     .order('name');
 
   // For testing

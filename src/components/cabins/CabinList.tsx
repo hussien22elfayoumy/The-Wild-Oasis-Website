@@ -1,6 +1,6 @@
-import { CabinType } from '@/types/interfaces';
 import CabinCard from '@/components/cabins/CabinCard';
 import { getCabins } from '@/lib/data-service';
+import { CabinType } from '@/types/interfaces';
 
 export default async function CabinList() {
   const cabins: CabinType[] = await getCabins();
