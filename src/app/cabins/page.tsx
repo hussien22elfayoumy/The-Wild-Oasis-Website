@@ -1,15 +1,12 @@
-import CabinCard from '@/components/cabins/CabinCard';
-import { getCabins } from '@/lib/data-service';
-import { CabinType } from '@/types/interfaces';
-import React from 'react';
+import React, { Suspense } from 'react';
+import CabinList from '@/components/cabins/CabinList';
+import Spinner from '@/components/global/Spinner';
 
 export const metadata = {
   title: 'Cabins',
 };
 
-export default async function Page() {
-  const cabins: CabinType[] = await getCabins();
-
+export default function Page() {
   return (
     <div>
       <h1 className="mb-5 text-4xl font-medium text-accent-400">Our Luxury Cabins</h1>
@@ -21,16 +18,9 @@ export default async function Page() {
         a peaceful, calm vacation. Welcome to paradise.
       </p>
 
-      {cabins.length > 0 && (
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-14">
-          {cabins.map((cabin) => (
-            <CabinCard
-              cabin={cabin}
-              key={cabin.id}
-            />
-          ))}
-        </div>
-      )}
+      <Suspense fallback={<Spinner />}>
+        <CabinList />
+      </Suspense>
     </div>
   );
 }
