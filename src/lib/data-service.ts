@@ -1,4 +1,5 @@
 import { createClient } from '@/db/supabase/server';
+import { notFound } from 'next/navigation';
 
 export async function getCountries() {
   try {
@@ -36,6 +37,7 @@ export async function getCabin(id: string) {
 
   if (error) {
     console.error(error);
+    notFound();
   }
 
   return data;
