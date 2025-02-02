@@ -1,22 +1,14 @@
+import CabinCard from '@/components/cabins/CabinCard';
 import { getCabins } from '@/lib/data-service';
+import { CabinType } from '@/types/interfaces';
 import React from 'react';
 
 export const metadata = {
   title: 'Cabins',
 };
 
-interface CabinType {
-  id: string;
-  name: string;
-  image: string;
-  discount: number;
-  maxCapacity: number;
-  regularPrice: number;
-}
-
 export default async function Page() {
-  const data = await getCabins();
-  console.log(data);
+  const cabins: CabinType[] = await getCabins();
 
   return (
     <div>
@@ -29,13 +21,16 @@ export default async function Page() {
         a peaceful, calm vacation. Welcome to paradise.
       </p>
 
-      {/*   {cabins.length > 0 && (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
+      {cabins.length > 0 && (
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-14">
           {cabins.map((cabin) => (
-            <CabinCard cabin={cabin} key={cabin.id} />
+            <CabinCard
+              cabin={cabin}
+              key={cabin.id}
+            />
           ))}
         </div>
-      )} */}
+      )}
     </div>
   );
 }
