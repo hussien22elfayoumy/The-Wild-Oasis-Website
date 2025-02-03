@@ -1,6 +1,15 @@
-import { getCabin } from '@/lib/data-service';
+import { getCabin, getCabins } from '@/lib/data-service';
 import Image from 'next/image';
 import { HiEyeSlash, HiMapPin, HiUsers } from 'react-icons/hi2';
+
+export async function generateStaticParams() {
+  const cabins = await getCabins();
+
+  const ids = cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
+  console.log(ids);
+
+  return ids;
+}
 
 export async function generateMetadata({ params }: { params: { cabinId: string } }) {
   const { cabinId } = await params;

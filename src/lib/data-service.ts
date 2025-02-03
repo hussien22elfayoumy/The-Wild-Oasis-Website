@@ -1,4 +1,4 @@
-import { createClient } from '@/db/supabase/server';
+import { createClient } from '@/db/supabase/client';
 import { notFound } from 'next/navigation';
 
 export async function getCountries() {
