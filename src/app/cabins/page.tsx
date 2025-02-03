@@ -1,7 +1,10 @@
 import React, { Suspense } from 'react';
 import CabinList from '@/components/cabins/CabinList';
 import Spinner from '@/components/global/Spinner';
-
+// Making the a full dynamic route no caching at all
+// export const revalidate = 0;
+// ISR and partial rendring makin the route dynamic but only when the time has passed
+export const revalidate = 3600;
 export const metadata = {
   title: 'Cabins',
 };
