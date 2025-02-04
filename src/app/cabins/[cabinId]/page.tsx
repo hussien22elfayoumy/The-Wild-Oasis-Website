@@ -1,3 +1,5 @@
+import DateSelector from '@/components/cabins/DateSelector';
+import ReservationForm from '@/components/cabins/ReservationForm';
 import TextExpander from '@/components/cabins/TextExpander';
 import { getCabin, getCabins } from '@/lib/data-service';
 import Image from 'next/image';
@@ -74,9 +76,13 @@ export default async function Page({ params }: { params: { cabinId: string } }) 
       </div>
 
       <div>
-        <h2 className="text-center text-5xl font-semibold">
-          Reserve today. Pay on arrival.
+        <h2 className="mb-10 text-center text-5xl font-semibold text-accent-400">
+          Reserve {name} today. Pay on arrival.
         </h2>
+        <div className="mx-auto max-w-[700px]">
+          <DateSelector />
+          <ReservationForm />
+        </div>
       </div>
     </div>
   );
