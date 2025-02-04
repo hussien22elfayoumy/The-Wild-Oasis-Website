@@ -2,10 +2,31 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+const filterButtons = [
+  {
+    name: 'all cabins',
+    filter: 'all',
+  },
+  {
+    name: `1 - 3 guests`,
+    filter: 'small',
+  },
+  {
+    name: '4 - 6 guests',
+    filter: 'medium',
+  },
+  {
+    name: '7 - 10 guests',
+    filter: 'large',
+  },
+];
+
 export default function Filter() {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const router = useRouter();
+  const activeFilter = searchParams.get('capacity') ?? 'all';
+
   function handleFilter(filterTerm: string) {
     const params = new URLSearchParams(searchParams);
     params.set('capacity', filterTerm);
@@ -13,32 +34,18 @@ export default function Filter() {
       scroll: false,
     });
   }
+
   return (
     <div className="flex border border-primary-700">
-      <button
-        onClick={() => handleFilter('all')}
-        className="px-5 py-2 hover:bg-primary-700"
-      >
-        All cabins
-      </button>
-      <button
-        onClick={() => handleFilter('small')}
-        className="px-5 py-2 hover:bg-primary-700"
-      >
-        1&mdash;3 guests
-      </button>
-      <button
-        onClick={() => handleFilter('medium')}
-        className="px-5 py-2 hover:bg-primary-700"
-      >
-        4&mdash;6 guests
-      </button>
-      <button
-        onClick={() => handleFilter('large')}
-        className="px-5 py-2 hover:bg-primary-700"
-      >
-        7&mdash;10 guests
-      </button>
+      {filterButtons.map((button) => (
+        <button
+          key={button.filter}
+          onClick={() => handleFilter(button.filter)}
+          className={`px-5 py-2 hover:bg-primary-700 ${activeFilter === button.filter ? 'bg-primary-700' : ''}`}
+        >
+          {button.name}
+        </button>
+      ))}
     </div>
   );
 }
