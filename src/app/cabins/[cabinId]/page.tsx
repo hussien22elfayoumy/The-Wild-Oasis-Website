@@ -1,3 +1,4 @@
+import TextExpander from '@/components/cabins/TextExpander';
 import { getCabin, getCabins } from '@/lib/data-service';
 import Image from 'next/image';
 import { HiEyeSlash, HiMapPin, HiUsers } from 'react-icons/hi2';
@@ -44,7 +45,9 @@ export default async function Page({ params }: { params: { cabinId: string } }) 
             Cabin {name}
           </h3>
 
-          <p className="mb-10 text-lg text-primary-300">{description}</p>
+          <p className="mb-10 text-lg text-primary-300">
+            <TextExpander>{description}</TextExpander>
+          </p>
 
           <ul className="mb-7 flex flex-col gap-4">
             <li className="flex items-center gap-3">
