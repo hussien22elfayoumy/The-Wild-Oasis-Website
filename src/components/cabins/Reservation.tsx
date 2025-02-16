@@ -5,16 +5,20 @@ import { getBookedDatesByCabinId, getSettings } from '@/lib/data-service';
 import { ICabinType } from '@/types/interfaces';
 
 export default async function Reservation({ cabin }: { cabin: ICabinType }) {
-  const [setting, bookedDates] = await Promise.all([
+  const [settings, bookedDates] = await Promise.all([
     getSettings(),
     getBookedDatesByCabinId(cabin.id),
   ]);
 
-  console.log(setting, bookedDates);
+  console.log(settings, bookedDates);
   return (
     <div className="mx-auto max-w-[700px]">
-      <DateSelector />
-      <ReservationForm />
+      <DateSelector
+        cabin={cabin}
+        settings={settings}
+        bookedDates={bookedDates}
+      />
+      <ReservationForm cabin={cabin} />
     </div>
   );
 }
