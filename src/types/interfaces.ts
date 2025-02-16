@@ -1,5 +1,5 @@
 // NOTE: cabins
-export interface CabinType {
+export interface ICabinType {
   id: string;
   name: string;
   image: string;
@@ -7,4 +7,14 @@ export interface CabinType {
   discount: number;
   maxCapacity: number;
   regularPrice: number;
+}
+
+// NOTE: Settings
+export interface IBookingSettings {
+  breakfastPrice: number;
+  createdAt: string;
+  id: number;
+  maxBookingLength: number;
+  maxGuestsPerBooking: number;
+  minBookingLength: number;
 }

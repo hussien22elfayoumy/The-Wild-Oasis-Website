@@ -1,10 +1,12 @@
-import DateSelector from '@/components/cabins/DateSelector';
-import ReservationForm from '@/components/cabins/ReservationForm';
+import Loading from '@/app/loading';
+import Reservation from '@/components/cabins/Reservation';
 import TextExpander from '@/components/cabins/TextExpander';
 import { getCabin, getCabins } from '@/lib/data-service';
 import Image from 'next/image';
+import { Suspense } from 'react';
 import { HiEyeSlash, HiMapPin, HiUsers } from 'react-icons/hi2';
 
+// NOTE: for making dynamic page static
 export async function generateStaticParams() {
   const cabins = await getCabins();
 
@@ -13,6 +15,7 @@ export async function generateStaticParams() {
   return ids;
 }
 
+// NOTE: for generating dynamic page title
 export async function generateMetadata({ params }: { params: { cabinId: string } }) {
   const { cabinId } = await params;
   const cabin = await getCabin(cabinId);
@@ -25,7 +28,7 @@ export default async function Page({ params }: { params: { cabinId: string } }) 
   const { cabinId } = await params;
   const cabin = await getCabin(cabinId);
 
-  const { id, name, maxCapacity, regularPrice, discount, image, description } = cabin;
+  const { id, name, maxCapacity, regularPrice, image, description, discount } = cabin;
 
   return (
     <div className="mx-auto mt-8 max-w-6xl">
@@ -74,15 +77,13 @@ export default async function Page({ params }: { params: { cabinId: string } }) 
           </ul>
         </div>
       </div>
-
       <div>
         <h2 className="mb-10 text-center text-5xl font-semibold text-accent-400">
           Reserve {name} today. Pay on arrival.
         </h2>
-        <div className="mx-auto max-w-[700px]">
-          <DateSelector />
-          <ReservationForm />
-        </div>
+        <Suspense fallback={<Loading />}>
+          <Reservation cabin={cabin} />
+        </Suspense>
       </div>
     </div>
   );
