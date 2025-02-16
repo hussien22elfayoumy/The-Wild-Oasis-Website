@@ -10,7 +10,6 @@ export default async function Reservation({ cabin }: { cabin: ICabinType }) {
     getBookedDatesByCabinId(cabin.id),
   ]);
 
-  console.log(settings, bookedDates);
   return (
     <div className="mx-auto max-w-[700px]">
       <DateSelector

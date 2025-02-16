@@ -25,7 +25,6 @@ function DateSelector({
 }) {
   // CHANGE
   const { regularPrice, discount } = cabin;
-  console.log(cabin);
   // const regularPrice = 23;
   // const discount = 23;
   const numNights = 23;
