@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import CabinList from '@/components/cabins/CabinList';
 import Spinner from '@/components/global/Spinner';
 import Filter from '@/components/cabins/Filter';
+import ReservationReminder from '@/components/cabins/ReservationReminder';
 // Making the a full dynamic route no caching at all
 // export const revalidate = 0;
 // ISR and partial rendring makin the route dynamic but only when the time has passed
@@ -36,6 +37,7 @@ export default async function Page({
         key={filter}
       >
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );

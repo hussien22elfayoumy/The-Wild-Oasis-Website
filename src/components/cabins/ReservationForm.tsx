@@ -1,8 +1,10 @@
+'use client';
+import { useReservationCtx } from '@/contexts/ReservationContext';
 import { ICabinType } from '@/types/interfaces';
 
 function ReservationForm({ cabin }: { cabin: ICabinType }) {
-  // CHANGE
   const { maxCapacity } = cabin;
+  const { range } = useReservationCtx();
 
   return (
     <div className="scale-[1.01]">
@@ -21,6 +23,8 @@ function ReservationForm({ cabin }: { cabin: ICabinType }) {
         </div> */}
       </div>
 
+      <p>from : {range?.from?.toString()}</p>
+      <p>to : {range?.to?.toString()}</p>
       <form className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg">
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
