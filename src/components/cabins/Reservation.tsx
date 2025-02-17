@@ -13,7 +13,6 @@ export default async function Reservation({ cabin }: { cabin: ICabinType }) {
   ]);
 
   const session = await auth();
-  console.log(session);
 
   return (
     <div className="mx-auto max-w-[700px]">

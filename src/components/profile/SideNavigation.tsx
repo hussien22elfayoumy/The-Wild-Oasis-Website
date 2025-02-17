@@ -1,5 +1,5 @@
 'use client';
-import SignOutButton from '@/components/profile/SignOutButton';
+import SignOutButton from '@/components/global/SignOutButton';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HiCalendarDays, HiHome, HiUser } from 'react-icons/hi2';
