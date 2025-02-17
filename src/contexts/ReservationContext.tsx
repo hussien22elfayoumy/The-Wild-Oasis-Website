@@ -5,7 +5,13 @@ import { DateRange } from 'react-day-picker';
 interface IReservationCtx {
   range: DateRange | undefined;
   setRange: Dispatch<SetStateAction<DateRange | undefined>>;
+  resetRange: () => void;
 }
+
+const initialState = {
+  from: undefined,
+  to: undefined,
+};
 
 const ReservationContext = createContext<IReservationCtx>({
   range: {
@@ -13,6 +19,7 @@ const ReservationContext = createContext<IReservationCtx>({
     to: undefined,
   },
   setRange: () => {},
+  resetRange: () => {},
 });
 
 export function ReservationProvider({
@@ -20,14 +27,13 @@ export function ReservationProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [range, setRange] = useState<DateRange | undefined>({
-    from: undefined,
-    to: undefined,
-  });
+  const [range, setRange] = useState<DateRange | undefined>(initialState);
 
+  const resetRange = () => setRange(initialState);
   const ctxValue = {
     range,
     setRange,
+    resetRange,
   };
 
   return (

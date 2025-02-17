@@ -1,4 +1,5 @@
 'use client';
+import { useReservationCtx } from '@/contexts/ReservationContext';
 import { IBookingSettings, ICabinType } from '@/types/interfaces';
 import { isWithinInterval } from 'date-fns';
 import { useState } from 'react';
@@ -35,10 +36,7 @@ function DateSelector({
   // SETTINGS
 
   const { minBookingLength, maxBookingLength } = settings;
-  const [range, setRange] = useState<DateRange | undefined>({
-    from: undefined,
-    to: undefined,
-  });
+  const { range, setRange, resetRange } = useReservationCtx();
 
   return (
     <div className="flex flex-col justify-between">
@@ -90,7 +88,7 @@ function DateSelector({
         {range?.from || range?.to ? (
           <button
             className="border border-primary-800 px-4 py-2 text-sm font-semibold"
-            // onClick={() => resetRange()}
+            onClick={resetRange}
           >
             Clear
           </button>
