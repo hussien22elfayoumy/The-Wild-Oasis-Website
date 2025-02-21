@@ -18,3 +18,14 @@ export interface IBookingSettings {
   maxGuestsPerBooking: number;
   minBookingLength: number;
 }
+
+// NOTE: Guest
+export interface IGuest {
+  countryFlag: string;
+  createdAt: string;
+  email: string;
+  fullName: string;
+  id: 2;
+  nationalID: string;
+  nationality: string;
+}

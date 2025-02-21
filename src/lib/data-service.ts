@@ -1,5 +1,5 @@
 import { createClient } from '@/db/supabase/client';
-import { IBookingSettings, ICabinType } from '@/types/interfaces';
+import { IBookingSettings, ICabinType, IGuest } from '@/types/interfaces';
 import { notFound } from 'next/navigation';
 import { eachDayOfInterval } from 'date-fns';
 
@@ -91,7 +91,7 @@ export async function getBookedDatesByCabinId(cabinId: string) {
   return bookedDates;
 }
 
-export async function getGuest(email: string | null | undefined) {
+export async function getGuest(email: string | null | undefined): Promise<IGuest> {
   const supabase = await createClient();
 
   const { data, error } = await supabase

@@ -9,3 +9,9 @@ export async function signInAction() {
 export async function signOutAction() {
   await signOut({ redirectTo: '/' });
 }
+
+// NOTE: update Guest
+
+export async function updateGuestInfo(formData: FormData) {
+  console.log(formData);
+}
