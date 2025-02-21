@@ -71,7 +71,6 @@ export async function getBookings(guestId: string) {
     .select(
       'id, createdAt, status, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)'
     )
-    // .select('*')
     .eq('guestId', guestId)
     .order('startDate');
 

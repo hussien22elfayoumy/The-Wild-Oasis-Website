@@ -73,16 +73,18 @@ function ReservationCard({ booking }: { booking: IBooking }) {
         </div>
       </div>
 
-      <div className="flex items-center border-t border-primary-800 md:w-[100px] md:flex-col md:border-l md:p-0">
-        <Link
-          href={`/account/reservations/edit/${id}`}
-          className="md:border-e-none group flex flex-grow items-center gap-2 border-e border-primary-800 px-3 py-3 text-xs font-bold uppercase text-primary-300 transition-colors hover:bg-accent-600 hover:text-primary-900 md:w-full md:border-b md:py-0"
-        >
-          <HiPencilSquare className="h-5 w-5 text-primary-600 transition-colors group-hover:text-primary-800" />
-          <span className="mt-1">Edit</span>
-        </Link>
-        <DeleteReservation bookingId={id} />
-      </div>
+      {!isPast(startDate) ? (
+        <div className="flex items-center border-t border-primary-800 md:w-[100px] md:flex-col md:border-l md:p-0">
+          <Link
+            href={`/account/reservations/edit/${id}`}
+            className="md:border-e-none group flex flex-grow items-center gap-2 border-e border-primary-800 px-3 py-3 text-xs font-bold uppercase text-primary-300 transition-colors hover:bg-accent-600 hover:text-primary-900 md:w-full md:border-b md:py-0"
+          >
+            <HiPencilSquare className="h-5 w-5 text-primary-600 transition-colors group-hover:text-primary-800" />
+            <span className="mt-1">Edit</span>
+          </Link>
+          <DeleteReservation bookingId={id} />
+        </div>
+      ) : null}
     </div>
   );
 }

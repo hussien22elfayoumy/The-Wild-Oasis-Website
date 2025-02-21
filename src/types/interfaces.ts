@@ -34,7 +34,7 @@ export interface IGuest {
 
 export interface IBooking {
   cabinId: number | any;
-  cabins: { name: string | any; image: string | any } | any;
+  cabins: { name: string; image: string } | any;
   createdAt: string | any;
   endDate: string | any;
   guestId: number | any;
