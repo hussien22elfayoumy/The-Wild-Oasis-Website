@@ -7,6 +7,7 @@ import Image from 'next/image';
 function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
   const { maxCapacity } = cabin;
   const { range } = useReservationCtx();
+  console.log(range);
 
   return (
     <div className="">

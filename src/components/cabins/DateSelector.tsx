@@ -1,20 +1,19 @@
 'use client';
 import { useReservationCtx } from '@/contexts/ReservationContext';
 import { IBookingSettings, ICabinType } from '@/types/interfaces';
-import { isWithinInterval } from 'date-fns';
-import { useState } from 'react';
+import { differenceInDays, isPast, isSameDay, isWithinInterval } from 'date-fns';
 import { DateRange, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
-/* function isAlreadyBooked(range, datesArr) {
+function isAlreadyBooked(range: DateRange | undefined, datesArr: Date[]) {
   return (
-    range.from &&
-    range.to &&
+    range?.from &&
+    range?.to &&
     datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
+      isWithinInterval(date, { start: range.from!, end: range.to! })
     )
   );
-} */
+}
 
 function DateSelector({
   cabin,
@@ -25,24 +24,20 @@ function DateSelector({
   settings: IBookingSettings;
   bookedDates: Date[];
 }) {
-  // CHANGE
-  const { regularPrice, discount } = cabin;
-  // const regularPrice = 23;
-  // const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
-  // const range = { from: null, to: null };
-
-  // SETTINGS
-
-  const { minBookingLength, maxBookingLength } = settings;
   const { range, setRange, resetRange } = useReservationCtx();
+  const { minBookingLength, maxBookingLength } = settings;
+  const { regularPrice, discount } = cabin;
+
+  const displayRange = isAlreadyBooked(range, bookedDates) ? undefined : range;
+
+  const numNights = differenceInDays(displayRange?.to!, displayRange?.from!);
+  const cabinPrice = numNights * (regularPrice - discount);
 
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
         onSelect={setRange}
-        selected={range}
+        selected={displayRange}
         className="place-self-center pt-12"
         mode="range"
         min={minBookingLength + 1}
@@ -51,10 +46,13 @@ function DateSelector({
         // fromDate={new Date()}
         // toYear={new Date().getFullYear() + 5}
         startMonth={new Date()}
-        hidden={[{ before: new Date() }]}
+        // hidden={[{ before: new Date() }]}
         endMonth={new Date(new Date().getFullYear(), 60)}
         captionLayout="dropdown"
         numberOfMonths={2}
+        disabled={(curDate) =>
+          isPast(curDate) || bookedDates.some((date) => isSameDay(date, curDate))
+        }
       />
 
       <div className="flex h-[72px] items-center justify-between bg-accent-500 px-8 text-primary-800">
