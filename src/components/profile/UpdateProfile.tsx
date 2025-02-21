@@ -18,8 +18,9 @@ export default function UpdateProfile({
       className="flex flex-col gap-6 bg-primary-900 px-12 py-8 text-lg"
     >
       <div className="space-y-2">
-        <label>Full name</label>
+        <label htmlFor="fullName">Full name</label>
         <input
+          id="fullName"
           disabled
           name="fullName"
           defaultValue={guest.fullName || ''}
@@ -28,8 +29,9 @@ export default function UpdateProfile({
       </div>
 
       <div className="space-y-2">
-        <label>Email address</label>
+        <label htmlFor="email">Email address</label>
         <input
+          id="email"
           disabled
           name="emaiil"
           defaultValue={guest.email || ''}
@@ -51,6 +53,7 @@ export default function UpdateProfile({
       <div className="space-y-2">
         <label htmlFor="nationalID">National ID number</label>
         <input
+          id="nationalID"
           name="nationalID"
           defaultValue={guest.nationalID}
           className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 shadow-sm"
