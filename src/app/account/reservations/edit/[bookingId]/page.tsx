@@ -62,7 +62,7 @@ export default async function Page({ params }: { params: { bookingId: string } }
         />
 
         <div className="flex items-center justify-end gap-6">
-          <SubmitBtn text="reservation" />
+          <SubmitBtn text="Updating ....">Update reservation</SubmitBtn>
         </div>
       </form>
     </div>

@@ -129,8 +129,6 @@ export async function createBooking(
     hasBreakfast: false,
   };
 
-  console.log(newBooking);
-
   const { error } = await supabase
     .from('bookings')
     .insert([newBooking])
@@ -141,6 +139,6 @@ export async function createBooking(
     throw new Error('Booking could not be created');
   }
 
-  revalidatePath('/account/reservations');
-  redirect('/account/reservations');
+  revalidatePath('/cabins');
+  // redirect('/account/reservations');
 }

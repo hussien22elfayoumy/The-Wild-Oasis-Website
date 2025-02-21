@@ -63,7 +63,7 @@ export default function UpdateProfile({
       </div>
 
       <div className="flex items-center justify-end gap-6">
-        <SubmitBtn text="profile" />
+        <SubmitBtn text="Updating profile">Update Profile</SubmitBtn>
       </div>
     </form>
   );

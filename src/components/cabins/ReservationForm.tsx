@@ -5,10 +5,11 @@ import { ICabinType } from '@/types/interfaces';
 import { differenceInDays } from 'date-fns';
 import { User } from 'next-auth';
 import Image from 'next/image';
+import SubmitBtn from '../global/SubmitBtn';
 
 function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
   const { maxCapacity, regularPrice, discount, id: cabinId } = cabin;
-  const { range } = useReservationCtx();
+  const { range, resetRange } = useReservationCtx();
   const startDate = range?.from;
   const endDate = range?.to;
   const numNights = differenceInDays(range?.to!, range?.from!);
@@ -42,7 +43,10 @@ function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
       </div>
 
       <form
-        action={createBookingWithData}
+        action={async (formData) => {
+          await createBookingWithData(formData);
+          resetRange();
+        }}
         className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg"
       >
         <div className="space-y-2">
@@ -83,9 +87,7 @@ function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
         <div className="flex items-center justify-end gap-6">
           <p className="text-base text-primary-300">Start by selecting dates</p>
 
-          <button className="bg-accent-500 px-8 py-4 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-            Reserve now
-          </button>
+          <SubmitBtn text="Reserving  ....">Reserve Now</SubmitBtn>
         </div>
       </form>
     </div>
