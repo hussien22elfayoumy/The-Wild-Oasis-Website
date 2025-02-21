@@ -1,9 +1,9 @@
-import { CabinType } from '@/types/interfaces';
+import { ICabinType } from '@/types/interfaces';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HiUsers } from 'react-icons/hi2';
 
-function CabinCard({ cabin }: { cabin: CabinType }) {
+function CabinCard({ cabin }: { cabin: ICabinType }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
 
   return (

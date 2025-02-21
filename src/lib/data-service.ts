@@ -1,8 +1,9 @@
 import { createClient } from '@/db/supabase/client';
-import { IBookingSettings, ICabinType, IGuest } from '@/types/interfaces';
+import { IBooking, IBookingSettings, ICabinType, IGuest } from '@/types/interfaces';
 import { notFound } from 'next/navigation';
 import { eachDayOfInterval } from 'date-fns';
 
+// NOTE: countries
 export async function getCountries() {
   try {
     const res = await fetch('https://restcountries.com/v2/all?fields=name,flag');
@@ -13,6 +14,7 @@ export async function getCountries() {
   }
 }
 
+// NOTE: Cabins Api
 export const getCabins = async function () {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -45,6 +47,7 @@ export async function getCabin(id: string): Promise<ICabinType> {
   return data;
 }
 
+// NOTE: Settings Aoi
 export async function getSettings(): Promise<IBookingSettings> {
   const supabase = await createClient();
   const { data, error } = await supabase.from('settings').select('*').single();
@@ -54,6 +57,27 @@ export async function getSettings(): Promise<IBookingSettings> {
   if (error) {
     console.error(error);
     throw new Error('Settings could not be loaded');
+  }
+
+  return data;
+}
+
+// NOTE: Bookings API
+export async function getBookings(guestId: string) {
+  const supabase = await createClient();
+  const { data, error, count } = await supabase
+    .from('bookings')
+    // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
+    .select(
+      'id, createdAt, status, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)'
+    )
+    // .select('*')
+    .eq('guestId', guestId)
+    .order('startDate');
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookings could not get loaded');
   }
 
   return data;
@@ -91,6 +115,7 @@ export async function getBookedDatesByCabinId(cabinId: string) {
   return bookedDates;
 }
 
+// NOTE: Guests API
 export async function getGuest(email: string | null | undefined): Promise<IGuest> {
   const supabase = await createClient();
 
