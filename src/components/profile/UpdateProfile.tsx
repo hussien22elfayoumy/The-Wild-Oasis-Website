@@ -1,7 +1,7 @@
 'use client';
 import { updateGuestInfo } from '@/lib/actions';
 import { IGuest } from '@/types/interfaces';
-import { useState } from 'react';
+import Image from 'next/image';
 
 export default function UpdateProfile({
   guest,
@@ -10,8 +10,6 @@ export default function UpdateProfile({
   guest: IGuest;
   children: React.ReactNode;
 }) {
-  const [count, setCount] = useState();
-  const countryFlag = 'pt.jpg';
   return (
     <form
       action={updateGuestInfo}
@@ -42,10 +40,12 @@ export default function UpdateProfile({
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <label htmlFor="nationality">Where are you from?</label>
-          <img
-            src={countryFlag}
+          <Image
+            src={guest.countryFlag || ''}
+            width={30}
+            height={30}
             alt="Country flag"
-            className="h-5 rounded-sm"
+            className="rounded-sm"
           />
         </div>
       </div>
