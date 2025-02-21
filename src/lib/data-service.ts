@@ -1,7 +1,7 @@
 import { createClient } from '@/db/supabase/client';
-import { IBooking, IBookingSettings, ICabinType, IGuest } from '@/types/interfaces';
-import { notFound } from 'next/navigation';
+import { IBookingSettings, ICabinType, IGuest } from '@/types/interfaces';
 import { eachDayOfInterval } from 'date-fns';
+import { notFound } from 'next/navigation';
 
 // NOTE: countries
 export async function getCountries() {
