@@ -139,6 +139,5 @@ export async function createBooking(
     throw new Error('Booking could not be created');
   }
 
-  revalidatePath('/cabins');
-  // redirect('/account/reservations');
+  revalidatePath(`/cabins`);
 }

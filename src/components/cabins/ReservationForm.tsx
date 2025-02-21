@@ -6,8 +6,10 @@ import { differenceInDays } from 'date-fns';
 import { User } from 'next-auth';
 import Image from 'next/image';
 import SubmitBtn from '../global/SubmitBtn';
+import { useRouter } from 'next/navigation';
 
 function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
+  const router = useRouter();
   const { maxCapacity, regularPrice, discount, id: cabinId } = cabin;
   const { range, resetRange } = useReservationCtx();
   const startDate = range?.from;
@@ -46,6 +48,7 @@ function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
         action={async (formData) => {
           await createBookingWithData(formData);
           resetRange();
+          router.push('/cabins/thank-you');
         }}
         className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg"
       >
@@ -85,9 +88,11 @@ function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
         </div>
 
         <div className="flex items-center justify-end gap-6">
-          <p className="text-base text-primary-300">Start by selecting dates</p>
-
-          <SubmitBtn text="Reserving  ....">Reserve Now</SubmitBtn>
+          {!(startDate && endDate) ? (
+            <p className="text-base text-primary-300">Start by selecting dates</p>
+          ) : (
+            <SubmitBtn text="Reserving  ....">Reserve Now</SubmitBtn>
+          )}
         </div>
       </form>
     </div>
