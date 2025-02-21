@@ -5,6 +5,7 @@ import { createClient } from '@/db/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { getBookings } from './data-service';
 import { IBooking } from '@/types/interfaces';
+import { redirect } from 'next/navigation';
 
 export async function signInAction() {
   await signIn('google', { redirectTo: '/account' });
@@ -61,4 +62,41 @@ export async function deleteReservation(bookingId: string) {
   }
 
   revalidatePath('/account/reservations');
+}
+
+// NOTE: Update reservation
+
+export async function updateBooking(formData: FormData) {
+  const session = await auth();
+  const supabase = await createClient();
+  if (!session) throw new Error('You are not logged in');
+
+  const bookingId = Number(formData.get('bookingId'));
+
+  const guestBookings = await getBookings(session.user?.id!);
+  const guestBookingsIDs = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIDs.includes(bookingId))
+    throw new Error('You are not allowd to update this cabin');
+
+  if (!formData.get('numGuests')) throw new Error('The number of Guests is Required');
+
+  const updatedValues = {
+    numGuests: Number(formData.get('numGuests')),
+    observations: formData.get('observations')?.slice(0, 1000),
+  };
+
+  const { error } = await supabase
+    .from('bookings')
+    .update(updatedValues)
+    .eq('id', bookingId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error('Booking could not be updated');
+  }
+
+  revalidatePath('/account/reservations');
+  redirect('/account/reservations');
 }

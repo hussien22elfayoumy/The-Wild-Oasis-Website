@@ -3,6 +3,7 @@ import { updateGuestInfo } from '@/lib/actions';
 import { IGuest } from '@/types/interfaces';
 import Image from 'next/image';
 import { useFormStatus } from 'react-dom';
+import SubmitBtn from '../global/SubmitBtn';
 
 export default function UpdateProfile({
   guest,
@@ -62,20 +63,8 @@ export default function UpdateProfile({
       </div>
 
       <div className="flex items-center justify-end gap-6">
-        <Button />
+        <SubmitBtn text="profile" />
       </div>
     </form>
-  );
-}
-
-function Button() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      disabled={pending}
-      className="bg-accent-500 px-8 py-4 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
-    >
-      {pending ? 'Updating profile' : 'Update profile'}
-    </button>
   );
 }

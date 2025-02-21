@@ -1,5 +1,5 @@
 import { createClient } from '@/db/supabase/client';
-import { IBookingSettings, ICabinType, IGuest } from '@/types/interfaces';
+import { IBooking, IBookingSettings, ICabinType, IGuest } from '@/types/interfaces';
 import { eachDayOfInterval } from 'date-fns';
 import { notFound } from 'next/navigation';
 
@@ -77,6 +77,23 @@ export async function getBookings(guestId: string) {
   if (error) {
     console.error(error);
     throw new Error('Bookings could not get loaded');
+  }
+
+  return data;
+}
+
+export async function getBooking(id: string) {
+  const supabase = await createClient();
+
+  const { data, error, count } = await supabase
+    .from('bookings')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not get loaded');
   }
 
   return data;

@@ -25,8 +25,8 @@ function ReservationCard({ booking }: { booking: IBooking }) {
   } = booking;
 
   return (
-    <div className="flex flex-col border border-primary-800 md:flex-row">
-      <div className="relative aspect-square h-52 md:h-32">
+    <div className="flex flex-col border border-primary-800 lg:flex-row">
+      <div className="relative aspect-square h-52 lg:h-32">
         <Image
           src={image}
           alt={`Cabin ${name}`}
@@ -56,10 +56,10 @@ function ReservationCard({ booking }: { booking: IBooking }) {
         <p className="text-lg text-primary-300">
           {format(new Date(startDate), 'EEE, MMM dd yyyy')} (
           {isToday(new Date(startDate)) ? 'Today' : formatDistanceFromNow(startDate)})
-          &mdash; {format(new Date(endDate), 'EEE, MMM dd yyyy')}
+          &lgash; {format(new Date(endDate), 'EEE, MMM dd yyyy')}
         </p>
 
-        <div className="mt-auto flex flex-col items-baseline gap-0 md:flex-row md:gap-5">
+        <div className="mt-auto flex flex-col items-baseline gap-0 lg:flex-row lg:gap-5">
           <div className="flex items-center gap-3">
             <p className="text-xl font-semibold text-accent-400">${totalPrice}</p>
             <p className="text-primary-300">&bull;</p>
@@ -67,17 +67,17 @@ function ReservationCard({ booking }: { booking: IBooking }) {
               {numGuests} guest{numGuests > 1 && 's'}
             </p>
           </div>
-          <p className="text-sm text-primary-400 md:ml-auto">
+          <p className="text-sm text-primary-400 lg:ml-auto">
             Booked {format(new Date(createdAt), 'EEE, MMM dd yyyy, p')}
           </p>
         </div>
       </div>
 
       {!isPast(startDate) ? (
-        <div className="flex items-center border-t border-primary-800 md:w-[100px] md:flex-col md:border-l md:p-0">
+        <div className="flex items-center border-t border-primary-800 lg:w-[100px] lg:flex-col lg:border-l lg:p-0">
           <Link
             href={`/account/reservations/edit/${id}`}
-            className="md:border-e-none group flex w-1/2 flex-grow items-center gap-2 border-e border-primary-800 px-3 py-3 text-xs font-bold uppercase text-primary-300 transition-colors hover:bg-accent-600 hover:text-primary-900 md:w-full md:border-b md:py-0"
+            className="lg:border-e-none group flex w-1/2 flex-grow items-center gap-2 border-e border-primary-800 px-3 py-3 text-xs font-bold uppercase text-primary-300 transition-colors hover:bg-accent-600 hover:text-primary-900 lg:w-full lg:border-b lg:py-0"
           >
             <HiPencilSquare className="h-5 w-5 text-primary-600 transition-colors group-hover:text-primary-800" />
             <span className="mt-1">Edit</span>
