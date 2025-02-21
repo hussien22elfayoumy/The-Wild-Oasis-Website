@@ -1,14 +1,27 @@
 'use client';
 import { useReservationCtx } from '@/contexts/ReservationContext';
+import { createBooking } from '@/lib/actions';
 import { ICabinType } from '@/types/interfaces';
+import { differenceInDays } from 'date-fns';
 import { User } from 'next-auth';
 import Image from 'next/image';
 
 function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
-  const { maxCapacity } = cabin;
+  const { maxCapacity, regularPrice, discount, id: cabinId } = cabin;
   const { range } = useReservationCtx();
-  console.log(range);
+  const startDate = range?.from;
+  const endDate = range?.to;
+  const numNights = differenceInDays(range?.to!, range?.from!);
+  const cabinPrice = numNights * (regularPrice - discount);
 
+  const bookingData = {
+    numNights,
+    startDate,
+    endDate,
+    cabinPrice,
+    cabinId,
+  };
+  const createBookingWithData = createBooking.bind(null, bookingData);
   return (
     <div className="">
       <div className="flex items-center justify-between bg-primary-800 px-16 py-2 text-primary-300">
@@ -28,7 +41,10 @@ function ReservationForm({ cabin, user }: { cabin: ICabinType; user: User }) {
         </div>
       </div>
 
-      <form className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg">
+      <form
+        action={createBookingWithData}
+        className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg"
+      >
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select
